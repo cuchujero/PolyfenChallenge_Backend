@@ -35,7 +35,7 @@ const calculateScore = (jobTitle, yearsInCompany, industry, companySize) => {
     "Front-End Developer": 0.7,
     "Back-End Developer": 0.7,
   };
-  
+
   jobWeight = jobWeights[jobTitle] || 0.5; // Valor predeterminado si el cargo no está en la lista.
 
   // Ponderación por industria
@@ -47,13 +47,13 @@ const calculateScore = (jobTitle, yearsInCompany, industry, companySize) => {
     "Marketing": 0.8,
     "Telecommunications": 0.75,
   };
-  
+
   industryWeight = industryWeights[industry] || 0.6; // Valor predeterminado si la industria no está en la lista.
 
-  // Puntaje por años de experiencia (escalado lineal de 0 a 100, hasta 20 años)
-  experienceScore = Math.min(yearsInCompany * 5, 100); // Años de experiencia multiplicados por 5, con límite de 100
+  // Puntaje por años de experiencia (escalado lineal de 0 a 100, con un rango moderado)
+  experienceScore = Math.min((yearsInCompany * 4), 100); // Años de experiencia multiplicados por 4, con límite de 100
 
-  // Puntaje por tamaño de la empresa
+  // Puntaje por tamaño de la empresa con un rango más amplio
   if (companySize > 10000) companySizeScore = 100;
   else if (companySize > 5000) companySizeScore = 90;
   else if (companySize > 2000) companySizeScore = 80;
@@ -63,16 +63,20 @@ const calculateScore = (jobTitle, yearsInCompany, industry, companySize) => {
   else companySizeScore = 40;
 
   // Cálculo final del score ponderado
-  const score = (
-    (experienceScore * 0.15) +  // 15% del puntaje total por experiencia
-    (companySizeScore * 0.35) +  // 35% del puntaje total por tamaño de empresa
-    (industryWeight * 0.22) +     // 22% del puntaje total por industria
-    (jobWeight * 0.28)            // 28% del puntaje total por cargo
+  let score = (
+    (experienceScore * 0.15) +   // 15% del puntaje total por experiencia
+    (companySizeScore * 0.32) +  // 32% del puntaje total por tamaño de empresa
+    (industryWeight * 0.28) +     // 28% del puntaje total por industria
+    (jobWeight * 0.25)            // 25% del puntaje total por cargo
   );
+
+  // Aplicar un factor de escala para ampliar el rango del puntaje final entre 0 y 100
+  score = score * (100 / 36); // Esto ajusta el puntaje para que se utilice todo el rango de 0 a 100, considerando el máximo posible (36)
 
   // Asegurarse de que el puntaje final esté entre 0 y 100
   return Math.round(Math.min(score, 100));
 };
+
 
 // Leer y procesar el CSV
 const importCSV = async (filePath) => {

@@ -32,6 +32,7 @@ Antes de comenzar, asegúrate de tener las siguientes herramientas instaladas:
 ## Endpoints
 
 /test --> Verificación del funcionamiento del servidor
+
 /prospects --> Información de los usuarios
 
 ## Importación de datos desde archivo CSV

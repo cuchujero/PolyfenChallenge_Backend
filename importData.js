@@ -64,10 +64,10 @@ const calculateScore = (jobTitle, yearsInCompany, industry, companySize) => {
 
   // Cálculo final del score ponderado
   const score = (
-    (experienceScore * 0.35) +  // 35% del puntaje total por experiencia
-    (companySizeScore * 0.3) +  // 30% del puntaje total por tamaño de empresa
-    (industryWeight * 20) +     // 20% del puntaje total por industria
-    (jobWeight * 15)            // 15% del puntaje total por cargo
+    (experienceScore * 0.18) +  // 18% del puntaje total por experiencia
+    (companySizeScore * 0.35) +  // 35% del puntaje total por tamaño de empresa
+    (industryWeight * 0.22) +     // 22% del puntaje total por industria
+    (jobWeight * 0.25)            // 25% del puntaje total por cargo
   );
 
   // Asegurarse de que el puntaje final esté entre 0 y 100

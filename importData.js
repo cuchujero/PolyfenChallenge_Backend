@@ -54,12 +54,12 @@ const calculateScore = (jobTitle, yearsInCompany, industry, companySize) => {
   experienceScore = Math.min((yearsInCompany * 4), 100); // Años de experiencia multiplicados por 4, con límite de 100
 
   // Puntaje por tamaño de la empresa con un rango más amplio
-  if (companySize > 10000) companySizeScore = 100;
-  else if (companySize > 5000) companySizeScore = 90;
-  else if (companySize > 2000) companySizeScore = 80;
-  else if (companySize > 1000) companySizeScore = 70;
-  else if (companySize > 500) companySizeScore = 60;
-  else if (companySize > 200) companySizeScore = 50;
+  if (companySize >= 2000) companySizeScore = 100;
+  else if (companySize >= 1500) companySizeScore = 90;
+  else if (companySize >= 1000) companySizeScore = 80;
+  else if (companySize >= 900) companySizeScore = 70;
+  else if (companySize >= 700) companySizeScore = 60;
+  else if (companySize >= 500) companySizeScore = 50;
   else companySizeScore = 40;
 
   // Cálculo final del score ponderado
@@ -69,9 +69,6 @@ const calculateScore = (jobTitle, yearsInCompany, industry, companySize) => {
     (industryWeight * 0.28) +     // 28% del puntaje total por industria
     (jobWeight * 0.25)            // 25% del puntaje total por cargo
   );
-
-  // Aplicar un factor de escala para ampliar el rango del puntaje final entre 0 y 100
-  score = score * (100 / 36); // Esto ajusta el puntaje para que se utilice todo el rango de 0 a 100, considerando el máximo posible (36)
 
   // Asegurarse de que el puntaje final esté entre 0 y 100
   return Math.round(Math.min(score, 100));
